@@ -17,7 +17,7 @@
     <xsl:template match="/">
         
         <!-- Send output to a document -->
-        <xsl:result-document href="ead_lcsh_all.xml">
+        <xsl:result-document href="0_all_ead_lcsh.xml">
             <subject_list>
 
             <!-- Apply the rest of the template to each EAD XML file in the specified directory -->
