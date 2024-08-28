@@ -9,8 +9,8 @@
     
     <xsl:output method="xml" indent="yes"/>
     
-    <xsl:param name="iteration" select="'unspecified'"/><!-- User specify an iteration or level number  -->
-    <xsl:param name="skosrdf_path" select="'/Volumes/Seagate/lcsh_bias_research/subjects.skosrdf-20230607.xml'"/>
+    <xsl:param name="iteration" select="'unspecified'"/><!-- User specify an iteration or level number or override from command line -->
+    <xsl:param name="skosrdf_path" select="'/Volumes/Seagate/subjects.skosrdf-20230607.xml'"/><!-- User update path and filename for your local copy of LCSH SKOS/RDF XML file -->
     
     <xsl:variable name="skosrdf" select="document($skosrdf_path)"/>
     <xsl:variable name="lc_records" select="$skosrdf/rdf:RDF"/>
