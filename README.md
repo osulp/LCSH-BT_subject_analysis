@@ -1,8 +1,18 @@
 # LCSH Broader Terms Subject Analysis
 
-This repository contains several XSLT 2.0 stylesheets run in sequence against a local copy of the Library of Congress Subject Headings in SKOS RDF format. The pipeline constructs a model of progressively broader subject headings for a given collection of library materials based on the LC subject terms found in the collection's metadata records (e.g. MARC catalog records, EAD finding aids, Dublin Core records, etc.). The repository includes tools to analyze and present the resulting model. 
+This repository contains several XSLT 2.0 stylesheets run in sequence against a local copy of the Library of Congress Subject Headings (LCSH) in SKOS RDF format. The pipeline constructs a model of progressively broader subject headings for a given collection of library materials based on the LC subject terms found in the collection's metadata records (e.g. MARC catalog records, EAD finding aids, Dublin Core records, etc.). The repository includes tools to analyze and present the resulting model. 
 
 ## Background
+
+Broader terms (BTs) and narrower terms (NTs) are used by LCSH to organize subject headings and relate them to one another. LC's guidance document [H 370](https://www.loc.gov/aba/publications/FreeSHM/H0370.pdf) provides the following background: 
+
+> Broader term, narrower term, and related term references for subject headings are created according to the following principles:
+> Hierarchical references. A narrower term reference is made to a given subject heading from the next broader heading so that terms are arranged in a hierarchy. The following relationships are considered hierarchical:
+> - Genus/species (or class/class member) [...]
+> - Whole/part [...]
+> - Instance (or generic topic/proper-named example) [...]
+
+By traversing the "tree" of broader terms from the subject headings assigned to a particular library collection until they terminate at their theoretical broadest concept, we can construct a model of the general topics present in that collection and observe relationships between subjects and the resources to which they are assigned. 
 
 This method was developed to create a baseline topic model for a research article _Text analysis of archival finding aids_, which is pending publication in _Information Technology and Libraries_ as of August 2024. The final topic model produced for that project using this method is contained in the supplementary OSF repository: 
 
@@ -20,7 +30,14 @@ This method was developed to create a baseline topic model for a research articl
 
 ## Conventions
 
-- To avoid errors when traversing through LCSH Broader Terms, the "root subject" is the only part of a given subject heading that is used in the pipeline. The root subject is the portion of the subject heading preceeding the first subdivision, or the string up to the first double hyphen "--" in the term, if present. If not subdivided, the "root subject" is the full subject heading. 
+- **Terminology:** While all "subjects" and "topics" present throughout the pipeline should be LCSH terms, the following naming system is used to disambiguate:
+    - **Subjects** are LCSH terms as they originally occur in the source collection
+    - **Topics** are LCSH terms that constitute the model built by this pipeline.
+    - **Subject heading** and **Term** may be used interchangeably to refer to an individual entry in LCSH;
+    - **Term** may also be used to refer to an individual Topic entry in the model.
+    - **Broader Terms** are found within an LC subject authority record (as defined above in "Background").
+    - **Label** refers specifically to the human-readable string representing the Subject, Topic, etc.; the label may be the de facto representation of a term for most purposes, but it's worth mentioning that an LCSH term (in the Linked Data Service) is also represented by a permanent/fixed machine-readable URI, while the label may be subject to change.  
+- To avoid errors when traversing through LCSH Broader Terms, the "root subject" is the only part of a given subject heading that is used in the pipeline. The root subject is the portion of the subject heading label preceeding the first subdivision, or the sub-string up to the first double hyphen "--" in the label, if present. If not subdivided, the "root subject" is the full subject heading label. 
 - Output files include the iteration number and the step number at the beginning of the filename, for organizing the various XML files generated throughout the pipeline.
 - Output files use arbitrary XML in no namespace, but should validate. 
 - References to the filename `x.xml` in the commands below are for a file that does not exist. The Saxon XSLT command requires an output parameter, but the output filename is specified within the XSLT stylesheet and will override the dummy filename in the command.
@@ -38,6 +55,11 @@ This method was developed to create a baseline topic model for a research articl
     - `java -jar ../saxon.jar -s:setup_fetch_EAD_subjects.xsl -o:x.xml`
 - The output `0_all_ead_lcsh.xml` should contain one `subject` entry containing the "root subject" for every LCSH term found in the source collection.
     - The `subject_list/subject/root_subject` XPATH are the key components of this file for continuing through the pipeline. The additional elements under `subject` may be used for validation and sanity checking.
+
+### Initialize topics
+
+- Run `step0_initialize_topics.xsl` on the output of the setup step to generate the initial list of topic terms, constituting the most specific or lowest level of the model. for EAD
+
 
 ### Pipeline: Construct a topic model using LC Broader Terms
 
