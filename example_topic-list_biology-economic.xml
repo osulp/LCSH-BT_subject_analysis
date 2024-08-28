@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<topic>
+      <label>Biology, Economic</label>
+      <narrower_terms>
+         <term>
+            <label>Botany, Economic</label>
+            <narrower_terms>
+               <term>
+                  <label>Forest products</label>
+                  <occurrences self_or_subdiv="13"/>
+                  <narrower_terms>
+                     <term>
+                        <label>Timber</label>
+                        <occurrences self_or_subdiv="14"/>
+                        <narrower_terms/>
+                     </term>
+                     <term>
+                        <label>Wood</label>
+                        <occurrences self_or_subdiv="13"/>
+                        <narrower_terms/>
+                     </term>
+                     <term>
+                        <label>Wood products</label>
+                        <narrower_terms>
+                           <term>
+                              <label>Lumber</label>
+                              <occurrences self_or_subdiv="4"/>
+                              <narrower_terms/>
+                           </term>
+                           <term>
+                              <label>Wood waste</label>
+                              <occurrences self_or_subdiv="3"/>
+                              <narrower_terms/>
+                           </term>
+                           <term>
+                              <label>Fuelwood</label>
+                              <occurrences self_or_subdiv="1"/>
+                              <narrower_terms/>
+                           </term>
+                           <term>
+                              <label>Wood poles</label>
+                              <occurrences self_or_subdiv="1"/>
+                              <narrower_terms/>
+                           </term>
+                           <term>
+                              <label>Engineered wood</label>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Laminated wood</label>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Plywood</label>
+                                          <occurrences self_or_subdiv="3"/>
+                                          <narrower_terms/>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                  </narrower_terms>
+               </term>
+               <term>
+                  <label>Weeds</label>
+                  <occurrences self_or_subdiv="5"/>
+                  <narrower_terms>
+                     <term>
+                        <label>Noxious weeds</label>
+                        <occurrences self_or_subdiv="1"/>
+                        <narrower_terms/>
+                     </term>
+                     <term>
+                        <label>Livestock poisoning plants</label>
+                        <narrower_terms>
+                           <term>
+                              <label>Delphinium</label>
+                              <occurrences self_or_subdiv="1"/>
+                              <narrower_terms/>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                  </narrower_terms>
+               </term>
+               <term>
+                  <label>Plant introduction</label>
+                  <narrower_terms>
+                     <term>
+                        <label>Plants, Cultivated</label>
+                        <narrower_terms>
+                           <term>
+                              <label>Crops</label>
+                              <occurrences self_or_subdiv="16"/>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Seeds</label>
+                                    <occurrences self_or_subdiv="4"/>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Seed crops</label>
+                                          <narrower_terms>
+                                             <term>
+                                                <label>Nuts</label>
+                                                <occurrences self_or_subdiv="1"/>
+                                                <narrower_terms>
+                                                   <term>
+                                                      <label>Nut trees</label>
+                                                      <narrower_terms>
+                                                         <term>
+                                                            <label>Tree crops</label>
+                                                            <narrower_terms>
+                                                               <term>
+                                                                  <label>Tree farms</label>
+                                                                  <occurrences self_or_subdiv="1"/>
+                                                                  <narrower_terms/>
+                                                               </term>
+                                                            </narrower_terms>
+                                                         </term>
+                                                      </narrower_terms>
+                                                   </term>
+                                                </narrower_terms>
+                                             </term>
+                                             <term>
+                                                <label>Oilseed plants</label>
+                                                <occurrences self_or_subdiv="1"/>
+                                                <narrower_terms>
+                                                   <term>
+                                                      <label>Flax</label>
+                                                      <occurrences self_or_subdiv="6"/>
+                                                      <narrower_terms/>
+                                                   </term>
+                                                </narrower_terms>
+                                             </term>
+                                          </narrower_terms>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                                 <term>
+                                    <label>New crops</label>
+                                    <occurrences self_or_subdiv="1"/>
+                                    <narrower_terms/>
+                                 </term>
+                                 <term>
+                                    <label>Field crops</label>
+                                    <occurrences self_or_subdiv="1"/>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Cover crops</label>
+                                          <occurrences self_or_subdiv="1"/>
+                                          <narrower_terms/>
+                                       </term>
+                                       <term>
+                                          <label>Energy crops</label>
+                                          <narrower_terms>
+                                             <term>
+                                                <label>Hydrocarbon-producing plants</label>
+                                                <narrower_terms>
+                                                   <term>
+                                                      <label>Oilseed plants</label>
+                                                      <occurrences self_or_subdiv="1"/>
+                                                      <narrower_terms>
+                                                         <term>
+                                                            <label>Flax</label>
+                                                            <occurrences self_or_subdiv="6"/>
+                                                            <narrower_terms/>
+                                                         </term>
+                                                      </narrower_terms>
+                                                   </term>
+                                                </narrower_terms>
+                                             </term>
+                                          </narrower_terms>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                                 <term>
+                                    <label>Seed crops</label>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Nuts</label>
+                                          <occurrences self_or_subdiv="1"/>
+                                          <narrower_terms>
+                                             <term>
+                                                <label>Nut trees</label>
+                                                <narrower_terms>
+                                                   <term>
+                                                      <label>Tree crops</label>
+                                                      <narrower_terms>
+                                                         <term>
+                                                            <label>Tree farms</label>
+                                                            <occurrences self_or_subdiv="1"/>
+                                                            <narrower_terms/>
+                                                         </term>
+                                                      </narrower_terms>
+                                                   </term>
+                                                </narrower_terms>
+                                             </term>
+                                          </narrower_terms>
+                                       </term>
+                                       <term>
+                                          <label>Oilseed plants</label>
+                                          <occurrences self_or_subdiv="1"/>
+                                          <narrower_terms>
+                                             <term>
+                                                <label>Flax</label>
+                                                <occurrences self_or_subdiv="6"/>
+                                                <narrower_terms/>
+                                             </term>
+                                          </narrower_terms>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                                 <term>
+                                    <label>Tree crops</label>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Tree farms</label>
+                                          <occurrences self_or_subdiv="1"/>
+                                          <narrower_terms/>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                           <term>
+                              <label>Horticultural crops</label>
+                              <occurrences self_or_subdiv="2"/>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Fruit</label>
+                                    <occurrences self_or_subdiv="12"/>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Berries</label>
+                                          <occurrences self_or_subdiv="6"/>
+                                          <narrower_terms>
+                                             <term>
+                                                <label>Huckleberries</label>
+                                                <occurrences self_or_subdiv="1"/>
+                                                <narrower_terms/>
+                                             </term>
+                                          </narrower_terms>
+                                       </term>
+                                       <term>
+                                          <label>Tropical fruit</label>
+                                          <narrower_terms>
+                                             <term>
+                                                <label>Citrus fruits</label>
+                                                <occurrences self_or_subdiv="1"/>
+                                                <narrower_terms/>
+                                             </term>
+                                          </narrower_terms>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                                 <term>
+                                    <label>Vegetables</label>
+                                    <occurrences self_or_subdiv="7"/>
+                                    <narrower_terms/>
+                                 </term>
+                                 <term>
+                                    <label>Nursery stock</label>
+                                    <occurrences self_or_subdiv="3"/>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Trees</label>
+                                          <occurrences self_or_subdiv="5"/>
+                                          <narrower_terms>
+                                             <term>
+                                                <label>Wood</label>
+                                                <occurrences self_or_subdiv="13"/>
+                                                <narrower_terms/>
+                                             </term>
+                                             <term>
+                                                <label>Tree crops</label>
+                                                <narrower_terms>
+                                                   <term>
+                                                      <label>Tree farms</label>
+                                                      <occurrences self_or_subdiv="1"/>
+                                                      <narrower_terms/>
+                                                   </term>
+                                                </narrower_terms>
+                                             </term>
+                                             <term>
+                                                <label>Fruit trees</label>
+                                                <narrower_terms>
+                                                   <term>
+                                                      <label>Tree crops</label>
+                                                      <narrower_terms>
+                                                         <term>
+                                                            <label>Tree farms</label>
+                                                            <occurrences self_or_subdiv="1"/>
+                                                            <narrower_terms/>
+                                                         </term>
+                                                      </narrower_terms>
+                                                   </term>
+                                                </narrower_terms>
+                                             </term>
+                                             <term>
+                                                <label>Nut trees</label>
+                                                <narrower_terms>
+                                                   <term>
+                                                      <label>Tree crops</label>
+                                                      <narrower_terms>
+                                                         <term>
+                                                            <label>Tree farms</label>
+                                                            <occurrences self_or_subdiv="1"/>
+                                                            <narrower_terms/>
+                                                         </term>
+                                                      </narrower_terms>
+                                                   </term>
+                                                </narrower_terms>
+                                             </term>
+                                          </narrower_terms>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                                 <term>
+                                    <label>Nuts</label>
+                                    <occurrences self_or_subdiv="1"/>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Nut trees</label>
+                                          <narrower_terms>
+                                             <term>
+                                                <label>Tree crops</label>
+                                                <narrower_terms>
+                                                   <term>
+                                                      <label>Tree farms</label>
+                                                      <occurrences self_or_subdiv="1"/>
+                                                      <narrower_terms/>
+                                                   </term>
+                                                </narrower_terms>
+                                             </term>
+                                          </narrower_terms>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                  </narrower_terms>
+               </term>
+               <term>
+                  <label>Fungi--Economic aspects</label>
+                  <narrower_terms>
+                     <term>
+                        <label>Fungi in agriculture</label>
+                        <narrower_terms>
+                           <term>
+                              <label>Fungicides</label>
+                              <occurrences self_or_subdiv="2"/>
+                              <narrower_terms/>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                  </narrower_terms>
+               </term>
+            </narrower_terms>
+         </term>
+         <term>
+            <label>Zoology, Economic</label>
+            <narrower_terms>
+               <term>
+                  <label>Beneficial insects</label>
+                  <occurrences self_or_subdiv="1"/>
+                  <narrower_terms/>
+               </term>
+               <term>
+                  <label>Domestic animals</label>
+                  <narrower_terms>
+                     <term>
+                        <label>Dogs</label>
+                        <occurrences self_or_subdiv="23"/>
+                        <narrower_terms/>
+                     </term>
+                     <term>
+                        <label>Livestock</label>
+                        <occurrences self_or_subdiv="11"/>
+                        <narrower_terms>
+                           <term>
+                              <label>Poultry</label>
+                              <occurrences self_or_subdiv="12"/>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Chickens</label>
+                                    <occurrences self_or_subdiv="3"/>
+                                    <narrower_terms/>
+                                 </term>
+                                 <term>
+                                    <label>Turkeys</label>
+                                    <occurrences self_or_subdiv="1"/>
+                                    <narrower_terms/>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                           <term>
+                              <label>Cattle</label>
+                              <occurrences self_or_subdiv="3"/>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Beef cattle</label>
+                                    <occurrences self_or_subdiv="5"/>
+                                    <narrower_terms/>
+                                 </term>
+                                 <term>
+                                    <label>Dairy cattle</label>
+                                    <occurrences self_or_subdiv="3"/>
+                                    <narrower_terms/>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                           <term>
+                              <label>Sheep</label>
+                              <occurrences self_or_subdiv="2"/>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Mountain sheep</label>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Bighorn sheep</label>
+                                          <occurrences self_or_subdiv="1"/>
+                                          <narrower_terms/>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                           <term>
+                              <label>Swine</label>
+                              <occurrences self_or_subdiv="1"/>
+                              <narrower_terms/>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                     <term>
+                        <label>Animal breeds</label>
+                        <narrower_terms>
+                           <term>
+                              <label>Dog breeds</label>
+                              <occurrences self_or_subdiv="1"/>
+                              <narrower_terms/>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                  </narrower_terms>
+               </term>
+               <term>
+                  <label>Animal culture</label>
+                  <narrower_terms>
+                     <term>
+                        <label>Poultry</label>
+                        <occurrences self_or_subdiv="12"/>
+                        <narrower_terms>
+                           <term>
+                              <label>Chickens</label>
+                              <occurrences self_or_subdiv="3"/>
+                              <narrower_terms/>
+                           </term>
+                           <term>
+                              <label>Turkeys</label>
+                              <occurrences self_or_subdiv="1"/>
+                              <narrower_terms/>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                     <term>
+                        <label>Livestock</label>
+                        <occurrences self_or_subdiv="11"/>
+                        <narrower_terms>
+                           <term>
+                              <label>Poultry</label>
+                              <occurrences self_or_subdiv="12"/>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Chickens</label>
+                                    <occurrences self_or_subdiv="3"/>
+                                    <narrower_terms/>
+                                 </term>
+                                 <term>
+                                    <label>Turkeys</label>
+                                    <occurrences self_or_subdiv="1"/>
+                                    <narrower_terms/>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                           <term>
+                              <label>Cattle</label>
+                              <occurrences self_or_subdiv="3"/>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Beef cattle</label>
+                                    <occurrences self_or_subdiv="5"/>
+                                    <narrower_terms/>
+                                 </term>
+                                 <term>
+                                    <label>Dairy cattle</label>
+                                    <occurrences self_or_subdiv="3"/>
+                                    <narrower_terms/>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                           <term>
+                              <label>Sheep</label>
+                              <occurrences self_or_subdiv="2"/>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Mountain sheep</label>
+                                    <narrower_terms>
+                                       <term>
+                                          <label>Bighorn sheep</label>
+                                          <occurrences self_or_subdiv="1"/>
+                                          <narrower_terms/>
+                                       </term>
+                                    </narrower_terms>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                           <term>
+                              <label>Swine</label>
+                              <occurrences self_or_subdiv="1"/>
+                              <narrower_terms/>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                     <term>
+                        <label>Ranching</label>
+                        <occurrences self_or_subdiv="3"/>
+                        <narrower_terms/>
+                     </term>
+                     <term>
+                        <label>Fish culture</label>
+                        <occurrences self_or_subdiv="1"/>
+                        <narrower_terms>
+                           <term>
+                              <label>Fish hatcheries</label>
+                              <occurrences self_or_subdiv="4"/>
+                              <narrower_terms/>
+                           </term>
+                           <term>
+                              <label>Fish ponds</label>
+                              <occurrences self_or_subdiv="1"/>
+                              <narrower_terms/>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                     <term>
+                        <label>Aviculture</label>
+                        <narrower_terms>
+                           <term>
+                              <label>Poultry</label>
+                              <occurrences self_or_subdiv="12"/>
+                              <narrower_terms>
+                                 <term>
+                                    <label>Chickens</label>
+                                    <occurrences self_or_subdiv="3"/>
+                                    <narrower_terms/>
+                                 </term>
+                                 <term>
+                                    <label>Turkeys</label>
+                                    <occurrences self_or_subdiv="1"/>
+                                    <narrower_terms/>
+                                 </term>
+                              </narrower_terms>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                     <term>
+                        <label>Herding</label>
+                        <narrower_terms>
+                           <term>
+                              <label>Sheepherding</label>
+                              <occurrences self_or_subdiv="1"/>
+                              <narrower_terms/>
+                           </term>
+                        </narrower_terms>
+                     </term>
+                  </narrower_terms>
+               </term>
+               <term>
+                  <label>Animal introduction</label>
+                  <narrower_terms>
+                     <term>
+                        <label>Wildlife reintroduction</label>
+                        <occurrences self_or_subdiv="1"/>
+                        <narrower_terms/>
+                     </term>
+                  </narrower_terms>
+               </term>
+            </narrower_terms>
+         </term>
+      </narrower_terms>
+      <terminus value="true"/>
+   </topic>
