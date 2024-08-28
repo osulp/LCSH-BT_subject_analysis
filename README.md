@@ -92,7 +92,7 @@ Example:
 
 ### Pipeline: Construct a topic model using LC Broader Terms
 
-The pipeline consists of four steps run in sequence, then repeated over as many iterations as needed until all original subject headings are traced to their terminus. Terms retain information about their narrower terms, tracing back to the original subject headings, throughout the pipeline. Once a terminus term is identified, it is marked as such and copied through the rest of the pipeline without additional attempts to fetch its broader terms. Pipeline examples below are from the first iteration of processing, for brevity. Term entries become complex very quickly; a later-iteration example is available [as a separate XML file]().
+The pipeline consists of four steps run in sequence, then repeated over as many iterations as needed until all original subject headings are traced to their terminus. Terms retain information about their narrower terms, tracing back to the original subject headings, throughout the pipeline. Once a terminus term is identified, it is marked as such and copied through the rest of the pipeline without additional attempts to fetch its broader terms. Pipeline examples below are from the first iteration of processing, for brevity. Term entries become complex very quickly; a later-iteration example is available [as a separate XML file](/example_topic-list_biology-economic.xml).
 
 1. Look up the LCSH entry in the LC SKOS/RDF XML file for each term in the current iteration's topic list; return its URI and broader terms.
   - Run `step1_bt_fetcher.xsl` on the output of either the Initialize Topics setup step or step 4 of the previous iteration, `{i}-4_topic_list.xml`.
