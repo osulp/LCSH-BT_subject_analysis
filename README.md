@@ -229,9 +229,9 @@ java -jar ../saxon.jar -s:2-3_merged_topics.xml -xsl:step4_topic_deduper.xsl -o:
 [Continue to increment the iteration argument, along with the iteration number at the beginning of the source (-s:) filename.]
 ```
 
-### Analysis and Presentation
+### Modeling
 
-Several XSLT stylesheets are included that are meant for analyzing and/or presenting the model in more usable ways than the topic list itself. These can be executed at the end of any iteration; they do not require all original subjects to be traced to their terminus. 
+Steps 5 and 6 are situated at the end of the pipeline and are used to finalize the topic model. That said, they can be run at the end of any iteration; they do not require all original subjects to be traced to their terminus. 
 
 5. Graph the relationships between the original subjects in the collection and the (current iteration) top-level terms. 
   - Run `step5_graph_topics.xsl` against the output of any iteration of step 4, `{i}-4_topic_list.xml`.  
@@ -330,7 +330,9 @@ Example:
 ...
 ```
 
-**"Steps" 7-9 produce text files rather than XML for presenting the topic model. They each are run on the topic graph or topic model output from steps 5 or 6 and do not have to be run in sequence.**
+### Analysis and Presentation
+
+"Steps" 7-9 produce text files rather than XML for presenting the topic model. Steps 8 and 9 are run on the topic graph output from step 5; step 7 is run on the topic model output from step 6. These do not have to be run in sequence.
 
 7. Generate a tabular (CSV) overview of the model. This presents two tables:
   - The first is all top-level, terminus-term topics that meet a given "threshold" or minimum number of representative-term occurrences as specified in the "threshold" parameter (default 10; 1 to return all top-level topics).
