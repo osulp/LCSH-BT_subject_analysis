@@ -92,7 +92,9 @@ Example:
 
 ### Pipeline: Construct a topic model using LC Broader Terms
 
-The pipeline consists of four steps run in sequence, then repeated over as many iterations as needed until all original subject headings are traced to their terminus. Terms retain information about their narrower terms, tracing back to the original subject headings, throughout the pipeline. Once a terminus term is identified, it is marked as such and copied through the rest of the pipeline without additional attempts to fetch its broader terms. Pipeline examples below are from the first iteration of processing, for brevity. Term entries become complex very quickly; a later-iteration example is available [as a separate XML file](/example_topic-list_biology-economic.xml).
+The pipeline consists of four steps run in sequence, then repeated over as many iterations as needed until all original subject headings are traced to their terminus. Terms retain information about their narrower terms, tracing back to the original subject headings, throughout the pipeline. Once a terminus term is identified, it is marked as such and copied through the rest of the pipeline without additional attempts to fetch its broader terms. 
+
+Pipeline examples below are from the first iteration of processing, for brevity. These trace the original subject heading "Timber" to its immediate broader terms, and then one of those broader terms "Forest products" to its broader term "Botany, economic." Term entries become complex very quickly; a later-iteration example is included in the repository [as a separate XML file](/example_topic-list_biology-economic.xml). _This file represents a single top-level topic, "Biology, economic," and all of its narrower hierarchy chains, resulting from step 4 of the 13th and final iteration of the original project._
 
 1. Look up the LCSH entry in the LC SKOS/RDF XML file for each term in the current iteration's topic list; return its URI and broader terms.
   - Run `step1_bt_fetcher.xsl` on the output of either the Initialize Topics setup step or step 4 of the previous iteration, `{i}-4_topic_list.xml`.
@@ -212,12 +214,155 @@ java -jar ../saxon.jar -s:2-3_merged_topics.xml -xsl:step4_topic_deduper.xsl -o:
 [Continue to increment the iteration argument, along with the iteration number at the beginning of the source (-s:) filename.]
 ```
 
-
-
 ### Analysis and Presentation
+
+Several XSLT stylesheets are included that are meant for analyzing and/or presenting the model in more usable ways than the topic list itself. These can be executed at the end of any iteration; they do not require all original subjects to be traced to their terminus. 
+
+5. Graph the relationships between the original subjects in the collection and the (current iteration) top-level terms. 
+  - Run `step5_graph_topics.xsl` against the output of any iteration of step 4, `{i}-4_topic_list.xml`.  
+  `java -jar ../saxon.jar -s:4-4_topic_list.xml -xsl:step5_graph_topics.xsl -o:x.xml iteration=example`
+  - The output, `{i}-5_topic_graph.xml` retains the overall structure and all top-level/terminus terms, but simplifies the entries to focus on the "original descendant" nodes.
+
+Example:
+```
+<term label="Botany, Economic">
+   <original_descendants>
+      <term label="Forest products" occurrences="13"/>
+      <term label="Timber" occurrences="14"/>
+      <term label="Wood" occurrences="13"/>
+      <term label="Lumber" occurrences="4"/>
+      <term label="Wood waste" occurrences="3"/>
+      <term label="Fuelwood" occurrences="1"/>
+      <term label="Wood poles" occurrences="1"/>
+      ...
+      ...
+      </original_descendants>
+         <narrower_terms>
+            <term label="Forest products" occurrences="13">
+               <original_descendants>
+                  <term label="Forest products" occurrences="13"/>
+                  <term label="Timber" occurrences="14"/>
+                  <term label="Wood" occurrences="13"/>
+                  <term label="Lumber" occurrences="4"/>
+                  <term label="Wood waste" occurrences="3"/>
+                  <term label="Fuelwood" occurrences="1"/>
+                  <term label="Wood poles" occurrences="1"/>
+                  <term label="Plywood" occurrences="3"/>
+               </original_descendants>
+               ...
+               ...
+```
+
+6. Calculate the combined occurrences of a term at any point in the the hierarchical chain along with its descendents to measure the overall prevalence of that topic in the collection. 
+  - Run `step6_sum_topics.xsl` against the output of any iteration of step 5, `{i}-5_topic_graph.xml`.  
+  `java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step6_sum_topics.xsl -o:x.xml iteration=example`
+  - The output of this step, `{i}-6_topic_model.xml`, lists the terms along each hierarchical chain, with each term's (1) number of original occurrences as itself; (2) number of "representative headings" that are descendants of that term; and (3) its "size" indicating the combined occurrences of itself and all of its representative headings. 
+  - **This is considered the complete topic model (for that iteration).**
+
+Example:
+```
+<term label="Botany, Economic" representative_headings="29" total_size="130">
+   <term label="Forest products"
+         occurrences="13"
+         representative_headings="8"
+         total_size="52">
+      <term label="Timber"
+            occurrences="14"
+            representative_headings="1"
+            total_size="14"/>
+      <term label="Wood"
+            occurrences="13"
+            representative_headings="1"
+            total_size="13"/>
+      <term label="Wood products" representative_headings="5" total_size="12">
+         <term label="Lumber"
+               occurrences="4"
+               representative_headings="1"
+               total_size="4"/>
+         <term label="Wood waste"
+               occurrences="3"
+               representative_headings="1"
+               total_size="3"/>
+         <term label="Fuelwood"
+               occurrences="1"
+               representative_headings="1"
+               total_size="1"/>
+         <term label="Wood poles"
+               occurrences="1"
+               representative_headings="1"
+               total_size="1"/>
+         <term label="Engineered wood" representative_headings="1" total_size="3">
+            <term label="Laminated wood" representative_headings="1" total_size="3">
+                <term label="Plywood"
+                      occurrences="3"
+                      representative_headings="1"
+                      total_size="3"/>
+                </term>
+            </term>
+         </term>
+      </term>
+...
+...
+```
+
+**"Steps" 7-9 produce text files rather than XML for presenting the topic model. They each are run on the topic graph or topic model output from steps 5 or 6 and do not have to be run in sequence.**
+
+7. Generate a tabular (CSV) overview of the model. This presents two tables:
+  - The first is all top-level, terminus-term topics that meet a given "threshold" or minimum number of representative-term occurrences as specified in the "threshold" parameter (default 10; 1 to return all top-level topics).
+  - The second is "right-sized" topics, which refers to broader-term subject headings at any level of the hierarchical chains who have at least {lower} but not {upper} unique original subject heading descendants in the source collection. The "lower" and "upper" limits are specified in parameters (default lower=5; default upper=50). This is useful since many top terms, such as "Science," become so general or include so many narrower terms that they lose utility. 
+  - Run `step7_present_topics.xsl` against the output step 6, `{i}-6_topic_model.xml`.
+  `java -jar ../saxon.jar -s:example-6_topic_model.xml -xsl:step7_present_topics.xsl -o:x.xml iteration=example threshold=5 lower=10 upper=50`
+
+Example:
+```
+Label,Number of Representative Subject Headings,Total Size of Concept
+
+"Economics",227,859
+"Physical sciences",243,835
+"Occupations",172,821
+"Handicraft",172,821
+"Industrial arts",172,821
+```
+
+8. Generate a text (Markdown) list of top-level, terminus-term topics that meet a given "threshold" -- as in the first table in #7 -- along with their originally-occurring descendents nested beneath.
+  - Run `step8_classify_topics.xsl` against the output of step 5, `{i}-5_topic_graph.xml`.  
+  `java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step8_classify_topics.xsl -o:x.xml iteration=example threshold=10`
+
+Example: 
+```
+- Biology, Economic (SH: 48; Size: 208)
+    - Dogs (23)
+    - Crops (16)
+    - Timber (14)
+    - Forest products (13)
+    - Wood (13)
+    - Fruit (12)
+    - Poultry (12)
+    - Livestock (11)
+    - Vegetables (7)
+    ...
+...
+```
+
+9. Generate a text (Markdown) list of right-sized topics scoped by lower and upper limits -- as in the second table in #7 -- along with their originally-occurring descendents nested beneath.
+  - Run `step9_reveal_topics.xsl` against the output of step 5, `{i}-5_topic_graph.xml`.  
+  `java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step9_reveal_topics.xsl -o:x.xml iteration=example lower=3 upper=30`
+
+Example: 
+```
+- Botany, Economic (SH: 29; Size: 130)
+    - Crops (16)
+    - Timber (14)
+    - Forest products (13)
+    - Wood (13)
+    - Fruit (12)
+    - Vegetables (7)
+    ...
+...
+```
 
 ## Planned improvements
 
-This pipeline is admittedly cumbersome. This is due in part to the author's limitations, but also to the processing demands of parsing the entirety of LCSH. Future dedicated research into LCSH topic modeling is planned, which will include simplifying and streamlining the pipeline as well as improving commenting throughout. 
+This pipeline is admittedly cumbersome. This is due in part to the author's limitations, but also to the processing demands of parsing the entirety of LCSH into complex structures. Future dedicated research into LCSH topic modeling is planned, which will include simplifying and streamlining the pipeline as well as improving commenting throughout. 
 
 Future work will also add tools for extracting the initial set of subjects from MARCXML and potentially other metadata schemas.
