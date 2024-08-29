@@ -102,7 +102,7 @@ Example:
    </topic>
 ```
 
-### Pipeline: Construct a topic model using LC Broader Terms
+### Pipeline: Construct a topic hierarchy using LC Broader Terms
 
 The pipeline consists of four steps run in sequence, then repeated over as many iterations as needed until all original subject headings are traced to their terminus. Terms retain information about their narrower terms, tracing back to the original subject headings, throughout the pipeline. Once a terminus term is identified, it is marked as such and copied through the rest of the pipeline without additional attempts to fetch its broader terms. 
 
@@ -229,7 +229,7 @@ java -jar ../saxon.jar -s:2-3_merged_topics.xml -xsl:step4_topic_deduper.xsl -o:
 [Continue to increment the iteration argument, along with the iteration number at the beginning of the source (-s:) filename.]
 ```
 
-### Modeling
+### Modeling: Shape the topic hierarchy into a representation of the source collection
 
 Steps 5 and 6 are situated at the end of the pipeline and are used to finalize the topic model. That said, they can be run at the end of any iteration; they do not require all original subjects to be traced to their terminus. 
 
