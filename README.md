@@ -61,7 +61,9 @@ While all "subjects" and "topics" present throughout the pipeline should be LCSH
 - Set up a single directory of EAD XML files as the source collection.
   - As written, the setup XSLT expects the directory to be located at `../source_xml/ead_xml`, so use this structure or update the variables at the top of the XSLT. 
 - Run `setup_fetch_EAD_subjects.xsl` to fetch LC Subject Headings from the EAD XML files:  
-    `java -jar ../saxon.jar -s:setup_fetch_EAD_subjects.xsl -xsl:setup_fetch_EAD_subjects.xsl -o:x.xml`
+
+  `java -jar ../saxon.jar -s:setup_fetch_EAD_subjects.xsl -xsl:setup_fetch_EAD_subjects.xsl -o:x.xml`
+
 - The output `0_all_ead_lcsh.xml` should contain one `subject` entry containing the "root subject" for every LCSH term found in the source collection.
   - The `subject_list/subject/root_subject` XPATH are the key components of this file for continuing through the pipeline. The additional elements under `subject` may be used for validation and sanity checking.
 
@@ -79,7 +81,9 @@ Example:
 
 - Run `step0_initialize_topics.xsl` on the output of the setup step to generate the initial list of topic terms, constituting the most specific or lowest level of the model.
 - For EAD, use:  
-    `java -jar ../saxon.jar -s:0_all_ead_lcsh.xml -xsl:step0_initialize_topics.xsl -o:x.xml`
+
+  `java -jar ../saxon.jar -s:0_all_ead_lcsh.xml -xsl:step0_initialize_topics.xsl -o:x.xml`
+
 - The output `0-4_topic_list.xml` gives a list of topics equating to the unique root subjects in the collection, with a count of the occurrences of each.
 
 Example:  
@@ -200,6 +204,7 @@ Example:
 The topic list is then used to fetch the next level of broader terms. These four steps can be repeated until the chains of hierarchies from all original subject headings reach their terminus and no additional broader terms can be fetched. This will be indicated in the `<meta>` section when `<nextRound_lookup_count>` equals "0".
 
 To run all four steps:  
+
 ```
 java -jar ../saxon.jar -s:0-4_topic_list.xml -xsl:step1_bt_fetcher.xsl -o:x.xml iteration=1
 java -jar ../saxon.jar -s:1-1_fetched_bts.xml -xsl:step2_bt_rearranger.xsl -o:x.xml iteration=1
@@ -220,7 +225,9 @@ Several XSLT stylesheets are included that are meant for analyzing and/or presen
 
 5. Graph the relationships between the original subjects in the collection and the (current iteration) top-level terms. 
   - Run `step5_graph_topics.xsl` against the output of any iteration of step 4, `{i}-4_topic_list.xml`.  
+  
   `java -jar ../saxon.jar -s:4-4_topic_list.xml -xsl:step5_graph_topics.xsl -o:x.xml iteration=example`
+  
   - The output, `{i}-5_topic_graph.xml` retains the overall structure and all top-level/terminus terms, but simplifies the entries to focus on the "original descendant" nodes.
 
 Example:
@@ -255,7 +262,9 @@ Example:
 
 6. Calculate the combined occurrences of a term at any point in the the hierarchical chain along with its descendents to measure the overall prevalence of that topic in the collection. 
   - Run `step6_sum_topics.xsl` against the output of any iteration of step 5, `{i}-5_topic_graph.xml`.  
+  
   `java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step6_sum_topics.xsl -o:x.xml iteration=example`
+  
   - The output of this step, `{i}-6_topic_model.xml`, lists the terms along each hierarchical chain, with each term's (1) number of original occurrences as itself; (2) number of "representative headings" that are descendants of that term; and (3) its "size" indicating the combined occurrences of itself and all of its representative headings. 
   - **This is considered the complete topic model (for that iteration).**
 
@@ -311,6 +320,7 @@ Example:
   - The first is all top-level, terminus-term topics that meet a given "threshold" or minimum number of representative-term occurrences as specified in the "threshold" parameter (default 10; 1 to return all top-level topics).
   - The second is "right-sized" topics, which refers to broader-term subject headings at any level of the hierarchical chains who have at least {lower} but not {upper} unique original subject heading descendants in the source collection. The "lower" and "upper" limits are specified in parameters (default lower=5; default upper=50). This is useful since many top terms, such as "Science," become so general or include so many narrower terms that they lose utility. 
   - Run `step7_present_topics.xsl` against the output step 6, `{i}-6_topic_model.xml`.
+  
   `java -jar ../saxon.jar -s:example-6_topic_model.xml -xsl:step7_present_topics.xsl -o:x.xml iteration=example threshold=5 lower=10 upper=50`
 
 Example:
@@ -326,6 +336,7 @@ Label,Number of Representative Subject Headings,Total Size of Concept
 
 8. Generate a text (Markdown) list of top-level, terminus-term topics that meet a given "threshold" -- as in the first table in #7 -- along with their originally-occurring descendents nested beneath.
   - Run `step8_classify_topics.xsl` against the output of step 5, `{i}-5_topic_graph.xml`.  
+  
   `java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step8_classify_topics.xsl -o:x.xml iteration=example threshold=10`
 
 Example: 
@@ -346,6 +357,7 @@ Example:
 
 9. Generate a text (Markdown) list of right-sized topics scoped by lower and upper limits -- as in the second table in #7 -- along with their originally-occurring descendents nested beneath.
   - Run `step9_reveal_topics.xsl` against the output of step 5, `{i}-5_topic_graph.xml`.  
+  
   `java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step9_reveal_topics.xsl -o:x.xml iteration=example lower=3 upper=30`
 
 Example: 
