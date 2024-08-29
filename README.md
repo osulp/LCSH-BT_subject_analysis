@@ -2,6 +2,8 @@
 
 This repository contains several XSLT 2.0 stylesheets run in sequence against a local copy of the Library of Congress Subject Headings (LCSH) in SKOS RDF format. The pipeline constructs a model of progressively broader subject headings for a given collection of library materials based on the LC subject terms found in the collection's metadata records (e.g. MARC catalog records, EAD finding aids, Dublin Core records, etc.). The repository includes tools to analyze and present the resulting model. 
 
+
+
 ## Background
 
 Broader terms (BTs) and narrower terms (NTs) are used by LCSH to organize subject headings and relate them to one another. LC's Subject Heading Manual, [H 370](https://www.loc.gov/aba/publications/FreeSHM/H0370.pdf) provides the following background: 
@@ -62,13 +64,16 @@ While all "subjects" and "topics" present throughout the pipeline should be LCSH
   - As written, the setup XSLT expects the directory to be located at `../source_xml/ead_xml`, so use this structure or update the variables at the top of the XSLT. 
 - Run `setup_fetch_EAD_subjects.xsl` to fetch LC Subject Headings from the EAD XML files:  
 
-  `java -jar ../saxon.jar -s:setup_fetch_EAD_subjects.xsl -xsl:setup_fetch_EAD_subjects.xsl -o:x.xml`
+```
+java -jar ../saxon.jar -s:setup_fetch_EAD_subjects.xsl -xsl:setup_fetch_EAD_subjects.xsl -o:x.xml
+```
 
 - The output `0_all_ead_lcsh.xml` should contain one `subject` entry containing the "root subject" for every LCSH term found in the source collection.
   - The `subject_list/subject/root_subject` XPATH are the key components of this file for continuing through the pipeline. The additional elements under `subject` may be used for validation and sanity checking.
 
 Example:
-```
+
+```xml
    <subject>
       <archon_id>1378</archon_id>
       <full_subject>Timber--Oregon.</full_subject>
@@ -82,12 +87,15 @@ Example:
 - Run `step0_initialize_topics.xsl` on the output of the setup step to generate the initial list of topic terms, constituting the most specific or lowest level of the model.
 - For EAD, use:  
 
-  `java -jar ../saxon.jar -s:0_all_ead_lcsh.xml -xsl:step0_initialize_topics.xsl -o:x.xml`
+```
+java -jar ../saxon.jar -s:0_all_ead_lcsh.xml -xsl:step0_initialize_topics.xsl -o:x.xml
+```
 
 - The output `0-4_topic_list.xml` gives a list of topics equating to the unique root subjects in the collection, with a count of the occurrences of each.
 
 Example:  
-```
+
+```xml
    <topic>
       <label>Timber</label>
       <occurrences self_or_subdiv="14"/>
@@ -106,7 +114,7 @@ Pipeline examples below are from the first iteration of processing, for brevity.
 
 Example:
 
-```
+```xml
    <LC_subject>
       <uri>http://id.loc.gov/authorities/subjects/sh85135386</uri>
       <label>Timber</label>
@@ -133,7 +141,8 @@ Example:
   - The output `{i}-2_bt_list.xml` includes a `<broader_term>` entry for each broader term fetched in step 1 AND for each terminus term (reduced to its root as applicable), showing the narrower "reference" term from which it was fetched with its accumulated information.
 
 Example:
-```
+
+```xml
    <broader_term>
       <label>Building materials</label>
       <reference>
@@ -162,7 +171,8 @@ Example:
   - The output `{i}-3_merged_topics.xml` includes a `<topic>` level for each broader term fetched in step 1 _that does not itself have another broader term thus far_ and for each terminus term, with all accumulated hierarchy information. _Note that duplicate entries occur at this stage._
 
 Example:
-```
+
+```xml
    <topic>
       <label>Botany, Economic</label>
       <narrower_terms>
@@ -226,12 +236,15 @@ Several XSLT stylesheets are included that are meant for analyzing and/or presen
 5. Graph the relationships between the original subjects in the collection and the (current iteration) top-level terms. 
   - Run `step5_graph_topics.xsl` against the output of any iteration of step 4, `{i}-4_topic_list.xml`.  
   
-  `java -jar ../saxon.jar -s:4-4_topic_list.xml -xsl:step5_graph_topics.xsl -o:x.xml iteration=example`
-  
+```
+java -jar ../saxon.jar -s:4-4_topic_list.xml -xsl:step5_graph_topics.xsl -o:x.xml iteration=example
+```
+
   - The output, `{i}-5_topic_graph.xml` retains the overall structure and all top-level/terminus terms, but simplifies the entries to focus on the "original descendant" nodes.
 
 Example:
-```
+
+```xml
 <term label="Botany, Economic">
    <original_descendants>
       <term label="Forest products" occurrences="13"/>
@@ -263,13 +276,16 @@ Example:
 6. Calculate the combined occurrences of a term at any point in the the hierarchical chain along with its descendents to measure the overall prevalence of that topic in the collection. 
   - Run `step6_sum_topics.xsl` against the output of any iteration of step 5, `{i}-5_topic_graph.xml`.  
   
-  `java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step6_sum_topics.xsl -o:x.xml iteration=example`
+```
+java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step6_sum_topics.xsl -o:x.xml iteration=example
+```
   
   - The output of this step, `{i}-6_topic_model.xml`, lists the terms along each hierarchical chain, with each term's (1) number of original occurrences as itself; (2) number of "representative headings" that are descendants of that term; and (3) its "size" indicating the combined occurrences of itself and all of its representative headings. 
   - **This is considered the complete topic model (for that iteration).**
 
 Example:
-```
+
+```xml
 <term label="Botany, Economic" representative_headings="29" total_size="130">
    <term label="Forest products"
          occurrences="13"
@@ -321,10 +337,13 @@ Example:
   - The second is "right-sized" topics, which refers to broader-term subject headings at any level of the hierarchical chains who have at least {lower} but not {upper} unique original subject heading descendants in the source collection. The "lower" and "upper" limits are specified in parameters (default lower=5; default upper=50). This is useful since many top terms, such as "Science," become so general or include so many narrower terms that they lose utility. 
   - Run `step7_present_topics.xsl` against the output step 6, `{i}-6_topic_model.xml`.
   
-  `java -jar ../saxon.jar -s:example-6_topic_model.xml -xsl:step7_present_topics.xsl -o:x.xml iteration=example threshold=5 lower=10 upper=50`
+```
+java -jar ../saxon.jar -s:example-6_topic_model.xml -xsl:step7_present_topics.xsl -o:x.xml iteration=example threshold=5 lower=10 upper=50
+```
 
 Example:
-```
+
+```text
 Label,Number of Representative Subject Headings,Total Size of Concept
 
 "Economics",227,859
@@ -337,10 +356,13 @@ Label,Number of Representative Subject Headings,Total Size of Concept
 8. Generate a text (Markdown) list of top-level, terminus-term topics that meet a given "threshold" -- as in the first table in #7 -- along with their originally-occurring descendents nested beneath.
   - Run `step8_classify_topics.xsl` against the output of step 5, `{i}-5_topic_graph.xml`.  
   
-  `java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step8_classify_topics.xsl -o:x.xml iteration=example threshold=10`
+```
+java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step8_classify_topics.xsl -o:x.xml iteration=example threshold=10
+```
 
 Example: 
-```
+
+```md
 - Biology, Economic (SH: 48; Size: 208)
     - Dogs (23)
     - Crops (16)
@@ -357,11 +379,14 @@ Example:
 
 9. Generate a text (Markdown) list of right-sized topics scoped by lower and upper limits -- as in the second table in #7 -- along with their originally-occurring descendents nested beneath.
   - Run `step9_reveal_topics.xsl` against the output of step 5, `{i}-5_topic_graph.xml`.  
-  
-  `java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step9_reveal_topics.xsl -o:x.xml iteration=example lower=3 upper=30`
+
+```
+java -jar ../saxon.jar -s:example-5_topic_graph.xml -xsl:step9_reveal_topics.xsl -o:x.xml iteration=example lower=3 upper=30
+```
 
 Example: 
-```
+
+```md
 - Botany, Economic (SH: 29; Size: 130)
     - Crops (16)
     - Timber (14)
