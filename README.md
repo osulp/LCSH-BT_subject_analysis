@@ -16,7 +16,11 @@ Broader terms (BTs) and narrower terms (NTs) are used by LCSH to organize subjec
 
 By tracing the "tree" of broader terms from the subject headings assigned to a particular library collection until they terminate at their theoretical broadest concept -- what H 370 refers to as "top terms" -- we can construct a model of the general topics present in that collection and observe relationships between subjects and the resources to which they are assigned. 
 
-This method was developed to create a baseline topic model for a research article _Text analysis of archival finding aids_, which is pending publication in _Information Technology and Libraries_ as of August 2024. The final topic model produced for that project using this method is contained in the supplementary OSF repository: 
+This method was developed to create a baseline topic model for a research article:
+
+> Bahde, A., & Key, C. (2024). Text Analysis of Archival Finding Aids: Collection Scoping and Beyond. _Information Technology and Libraries, 43_(4). https://doi.org/10.5860/ital.v43i4.17065
+
+The final topic model produced for that project using this method is contained in the supplementary OSF repository: 
 
 > Bahde, A. & Key, C. (2024b). Text analysis of archival finding aids: Supporting materials [Dataset]. Open Science Framework. http://doi.org/10.17605/OSF.IO/AUXF4
 
